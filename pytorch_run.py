@@ -477,7 +477,7 @@ else:
 img_test_no = 0
 
 for i in range(len(read_test_folder)):
-    im = Image.open(os.listdir(x_sort_test)[i])
+    im = Image.open(x_sort_test[i])
 
     im1 = im
     im_n = np.array(im1)
