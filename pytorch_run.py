@@ -231,7 +231,7 @@ else:
 import wandb
 
 
-wandb.config = {
+config = {
   "initial learning_rate": 0.001,
   "epochs": 3,
   "batch_size": 4
