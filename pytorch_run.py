@@ -59,7 +59,7 @@ valid_size = 0.15
 epoch = 3
 print('epoch = ' + str(epoch))
 
-random_seed = random.randint(1, 100)
+random_seed = 8
 print('random_seed = ' + str(random_seed))
 
 shuffle = True
@@ -229,13 +229,15 @@ else:
 #Wandb
 #######################################################
 import wandb
-wandb.init(project="Attention Unet", entity="paulokwija")
+
 
 wandb.config = {
   "initial learning_rate": 0.001,
   "epochs": 3,
   "batch_size": 4
 }
+
+wandb.init(config = config, project="Attention Unet", entity="paulokwija")
 #######################################################
 #Training loop
 #######################################################
@@ -270,6 +272,8 @@ for i in range(epoch):
 
         y_pred = model_test(x)
         lossT = calc_loss(y_pred, y)     # Dice_loss Used
+        acc = dice_coeff(y_pred, y)
+        print("dice_train", acc / len(train_idx))
 
         train_loss += lossT.item() * x.size(0)
         lossT.backward()
@@ -320,8 +324,8 @@ for i in range(epoch):
         './model/pred/img_iteration_' + str(n_iter) + '_epoch_'
         + str(i) + '.png', pred_tb[0][0])
 
-    accuracy = accuracy_score(pred_tb[0][0], s_label)
-    print("Img_acc:",accuracy)
+#     accuracy = accuracy_score(pred_tb[0][0], s_label)
+#     print("Img_acc:",accuracy)
 
     #######################################################
     #To write in Tensorboard
