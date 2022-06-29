@@ -10,6 +10,12 @@ import random
 import numpy as np
 
 
+def pil_loader(path):
+    # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
+    with open(path, 'rb') as f:
+        img = Image.open(f)
+        return img.convert('RGB')
+
 class Images_Dataset(Dataset):
     """Class for getting data as a Dict
     Args:
@@ -93,8 +99,8 @@ class Images_Dataset_folder(torch.utils.data.Dataset):
         return len(self.images)
 
     def __getitem__(self, i):
-        i1 = Image.open(self.images_dir + self.images[i])
-        l1 = Image.open(self.labels_dir + self.labels[i])
+        i1 = pil_loader(self.images_dir + self.images[i])
+        l1 = pil_loader(self.labels_dir + self.labels[i])
 
         seed=np.random.randint(0,2**32) # make a seed with numpy generator 
 
