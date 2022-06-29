@@ -272,8 +272,8 @@ for i in range(epoch):
 
         y_pred = model_test(x)
         lossT = calc_loss(y_pred, y)     # Dice_loss Used
-        acc = dice_coeff(y_pred, y)
-        print("dice_train", acc / len(train_idx))
+#         acc = dice_coeff(y_pred, y)
+#         print("dice_train", acc / len(train_idx))
 
         train_loss += lossT.item() * x.size(0)
         lossT.backward()
