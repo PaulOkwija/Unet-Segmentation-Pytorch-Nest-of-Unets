@@ -101,7 +101,7 @@ model_test.to(device)
 #Getting the Summary of Model
 #######################################################
 
-torchsummary.summary(model_test, input_size=(3, 128, 128))
+torchsummary.summary(model_test, input_size=(3, 256, 256))
 
 #######################################################
 #Passing the Dataset of Images and Labels
@@ -111,8 +111,8 @@ t_data = '/content/train/'
 l_data = '/content/train_GT/'
 test_image = '/content/test/109.png'
 test_label = '/content/test_GT/109.png'
-test_folderP = '/content/test/'
-test_folderL = '/content/test_GT/'
+test_folderP = '/content/test/*'
+test_folderL = '/content/test_GT/*'
 
 Training_Data = Images_Dataset_folder(t_data,
                                       l_data)
