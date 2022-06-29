@@ -56,7 +56,7 @@ print('batch_size = ' + str(batch_size))
 
 valid_size = 0.15
 
-epoch = 3
+epoch = 15
 print('epoch = ' + str(epoch))
 
 random_seed = 8
@@ -233,7 +233,7 @@ import wandb
 
 config = {
   "initial learning_rate": 0.001,
-  "epochs": 3,
+  "epochs": 15,
   "batch_size": 4
 }
 
