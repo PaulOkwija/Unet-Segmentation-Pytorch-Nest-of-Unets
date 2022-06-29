@@ -320,8 +320,8 @@ for i in range(epoch):
         './model/pred/img_iteration_' + str(n_iter) + '_epoch_'
         + str(i) + '.png', pred_tb[0][0])
 
-   accuracy = accuracy_score(pred_tb[0][0], s_label)
-   print("Img_acc:",accuracy)
+    accuracy = accuracy_score(pred_tb[0][0], s_label)
+    print("Img_acc:",accuracy)
 
     #######################################################
     #To write in Tensorboard
