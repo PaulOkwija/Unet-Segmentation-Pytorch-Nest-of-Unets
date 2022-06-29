@@ -224,7 +224,18 @@ except OSError:
     print("Creation of the model directory '%s' failed" % read_model_path)
 else:
     print("Successfully created the model directory '%s' " % read_model_path)
+    
+#######################################################
+#Wandb
+#######################################################
+import wandb
+wandb.init(project="Attention Unet", entity="paulokwija")
 
+wandb.config = {
+  "initial learning_rate": 0.001,
+  "epochs": 3,
+  "batch_size": 4
+}
 #######################################################
 #Training loop
 #######################################################
@@ -309,7 +320,8 @@ for i in range(epoch):
         './model/pred/img_iteration_' + str(n_iter) + '_epoch_'
         + str(i) + '.png', pred_tb[0][0])
 
-  #  accuracy = accuracy_score(pred_tb[0][0], s_label)
+   accuracy = accuracy_score(pred_tb[0][0], s_label)
+   print("Img_acc:",accuracy)
 
     #######################################################
     #To write in Tensorboard
@@ -317,6 +329,8 @@ for i in range(epoch):
 
     train_loss = train_loss / len(train_idx)
     valid_loss = valid_loss / len(valid_idx)
+    
+    wandb.log({"train_loss": train_loss,"valid_loss": valid_loss })
 
     if (i+1) % 1 == 0:
         print('Epoch: {}/{} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f}'.format(i + 1, epoch, train_loss,
