@@ -29,7 +29,11 @@ import time
 #from ploting import VisdomLinePlotter
 #from visdom import Visdom
 
-
+def pil_loader(path):
+    # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
+    with open(path, 'rb') as f:
+        img = Image.open(f)
+        return img.convert('RGB')
 #######################################################
 #Checking if GPU is used
 #######################################################
@@ -289,8 +293,8 @@ for i in range(epoch):
     #Saving the predictions
     #######################################################
 
-    im_tb = Image.open(test_image)
-    im_label = Image.open(test_label)
+    im_tb = pil_loader(test_image)
+    im_label = pil_loader(test_label)
     s_tb = data_transform(im_tb)
     s_label = data_transform(im_label)
     s_label = s_label.detach().numpy()
