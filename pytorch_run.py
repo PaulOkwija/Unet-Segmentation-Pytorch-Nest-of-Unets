@@ -275,9 +275,14 @@ for i in range(epoch):
 
         y_pred = model_test(x)
         lossT = calc_loss(y_pred, y)     # Dice_loss Used
+        iou = IoU(y_pred1, y1)
+        iou_loss = IoU_loss(y_pred1, y1)
 
 
         train_loss += lossT.item() * x.size(0)
+        train_iou += iou.item() * x1.size(0)
+        train_iouloss += iou_loss.item() * x1.size(0)
+        
         lossT.backward()
       #  plot_grad_flow(model_test.named_parameters(), n_iter)
         opt.step()
@@ -343,16 +348,21 @@ for i in range(epoch):
     train_loss = train_loss / len(train_idx)
     valid_loss = valid_loss / len(valid_idx)
     
+    train_iou = train_iou / len(train_idx)
+    train_iouloss = train_iouloss / len(train_idx)
+    
     val_d = val_d / len(valid_idx)
     val_iou = val_iou / len(valid_idx)
     val_iouloss = val_iouloss / len(valid_idx)
     
-    print('Val_iou:{} \tVal_dice:{}'.format(val_iou,val_d))
-    wandb.log({"train_loss": train_loss,"valid_loss": valid_loss })
+#     print('Val_iou:{} \tVal_dice:{}'.format(val_iou,val_d))
+    wandb.log({"train_loss": train_loss,"train_iouloss": train_iouloss, "train_iou": train_iou, "valid_loss": valid_loss, "Val_iouloss": val_iouloss, "Val_iou": val_iou })
 
     if (i+1) % 1 == 0:
-        print('Epoch: {}/{} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f}'.format(i + 1, epoch, train_loss,
-                                                                                      valid_loss))
+        print('Epoch: {}/{} \tTrain Loss: {:.6f} \tTrain IoU_Loss: {:.6f} \tVal Loss: {:.6f} \tVal IoU_Loss: {:.6f}'.format(i + 1, epoch, train_loss,train_iouloss,
+                                                                                      valid_loss,val_iouloss))
+        
+        print(' \tTrain IoU_Loss: {:.6f} \tVal IoU: {:.6f} \tVal Dice: {:.6f}'.format(train_iou,val_iou,val_d))
  #       writer1.add_scalar('Train Loss', train_loss, n_iter)
   #      writer1.add_scalar('Validation Loss', valid_loss, n_iter)
         #writer1.add_image('Pred', pred_tb[0]) #try to get output of shape 3
