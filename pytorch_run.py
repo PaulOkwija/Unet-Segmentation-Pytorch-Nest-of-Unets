@@ -56,7 +56,7 @@ print('batch_size = ' + str(batch_size))
 
 valid_size = 0.15
 
-epoch = 20
+epoch = 30
 print('epoch = ' + str(epoch))
 
 random_seed = 78
@@ -235,7 +235,7 @@ config = {
    "Model": "Unet",
     "Seed": 78,
   "initial learning_rate": 0.001,
-  "epochs": 20,
+  "epochs": 30,
   "batch_size": 8
 }
 
