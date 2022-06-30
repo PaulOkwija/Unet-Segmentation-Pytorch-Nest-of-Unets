@@ -246,6 +246,9 @@ for i in range(epoch):
 
     train_loss = 0.0
     valid_loss = 0.0
+    val_d = 0.0
+    val_iou = 0.0
+    val_iouloss = 0.0
     since = time.time()
     scheduler.step(i)
     lr = scheduler.get_lr()
