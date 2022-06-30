@@ -19,6 +19,60 @@ def dice_loss(prediction, target):
 
     return 1 - ((2. * intersection + smooth) / (i_flat.sum() + t_flat.sum() + smooth))
 
+def dice(prediction, target):
+    """Calculating the dice loss
+    Args:
+        prediction = predicted image
+        target = Targeted image
+    Output:
+        dice_loss"""
+
+    smooth = 0.005
+    prediction = F.sigmoid(prediction)
+
+    i_flat = prediction.view(-1)
+    t_flat = target.view(-1)
+
+    intersection = (i_flat * t_flat).sum()
+
+    return ((2. * intersection + smooth) / (i_flat.sum() + t_flat.sum() + smooth))
+
+
+def IoU(prediction, target):
+    """Calculating the dice loss
+    Args:
+        prediction = predicted image
+        target = Targeted image
+    Output:
+        dice_loss"""
+
+    smooth = 0.005
+    prediction = F.sigmoid(prediction)
+
+    i_flat = prediction.view(-1)
+    t_flat = target.view(-1)
+
+    intersection = (i_flat * t_flat).sum()
+
+    return ((intersection + smooth) / (i_flat.sum() + t_flat.sum() + smooth - intersection))
+
+def IoU_loss(prediction, target):
+    """Calculating the IoU loss
+    Args:
+        prediction = predicted image
+        target = Targeted image
+    Output:
+        dice_loss"""
+
+    smooth = 0.005
+    prediction = F.sigmoid(prediction)
+
+    i_flat = prediction.view(-1)
+    t_flat = target.view(-1)
+
+    intersection = (i_flat * t_flat).sum()
+
+    return 1 - ((intersection + smooth) / (i_flat.sum() + t_flat.sum() + smooth - intersection))
 
 def calc_loss(prediction, target, bce_weight=0.5):
     """Calculating the loss and metrics
