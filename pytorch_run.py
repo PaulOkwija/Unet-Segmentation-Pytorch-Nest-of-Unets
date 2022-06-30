@@ -232,8 +232,8 @@ import wandb
 
 
 config = {
-   "Model": "Unet"
-    "Seed": 78
+   "Model": "Unet",
+    "Seed": 78,
   "initial learning_rate": 0.001,
   "epochs": 20,
   "batch_size": 1
