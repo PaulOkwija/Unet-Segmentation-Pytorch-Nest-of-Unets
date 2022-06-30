@@ -283,8 +283,8 @@ for i in range(epoch):
 
 
         train_loss += lossT.item() * x.size(0)
-        train_iou += iou_t.item() * x1.size(0)
-        train_iouloss += iou_loss_t.item() * x1.size(0)
+        train_iou += iou_t.item() * x.size(0)
+        train_iouloss += iou_loss_t.item() * x.size(0)
         
         lossT.backward()
       #  plot_grad_flow(model_test.named_parameters(), n_iter)
