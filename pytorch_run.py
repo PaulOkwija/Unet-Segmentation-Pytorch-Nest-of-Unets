@@ -51,7 +51,7 @@ device = torch.device("cuda:0" if train_on_gpu else "cpu")
 #Setting the basic paramters of the model
 #######################################################
 
-batch_size = 2
+batch_size = 8
 print('batch_size = ' + str(batch_size))
 
 valid_size = 0.15
@@ -101,7 +101,7 @@ model_test.to(device)
 #Getting the Summary of Model
 #######################################################
 
-torchsummary.summary(model_test, input_size=(3, 256, 256))
+torchsummary.summary(model_test, input_size=(3, 128, 128))
 
 #######################################################
 #Passing the Dataset of Images and Labels
@@ -236,7 +236,7 @@ config = {
     "Seed": 78,
   "initial learning_rate": 0.001,
   "epochs": 20,
-  "batch_size": 1
+  "batch_size": 8
 }
 
 wandb.init(config = config, project="Attention Unet", entity="paulokwija")
