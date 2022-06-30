@@ -362,10 +362,10 @@ for i in range(epoch):
     wandb.log({"train_loss": train_loss,"train_iouloss": train_iouloss, "train_iou": train_iou, "valid_loss": valid_loss, "Val_iouloss": val_iouloss, "Val_iou": val_iou })
 
     if (i+1) % 1 == 0:
-        print('Epoch: {}/{} \tTrain Loss: {:.6f} \tTrain IoU_Loss: {:.6f} \tVal Loss: {:.6f} \tVal IoU_Loss: {:.6f}'.format(i + 1, epoch, train_loss,train_iouloss,
-                                                                                      valid_loss,val_iouloss))
+        print('Epoch: {}/{} \tTrain Loss: {:.6f}  \tVal Loss: {:.6f} \tTrain IoU_Loss: {:.6f} \tVal IoU_Loss: {:.6f}'.format(i + 1, epoch, train_loss,valid_loss,train_iouloss,
+                                                                                      val_iouloss))
         
-        print(' \tTrain IoU_Loss: {:.6f} \tVal IoU: {:.6f} \tVal Dice: {:.6f}'.format(train_iou,val_iou,val_d))
+        print('\tVal Dice: {:.6f} \tTrain IoU: {:.6f} \tVal IoU: {:.6f} '.format(val_d,train_iou,val_iou))
  #       writer1.add_scalar('Train Loss', train_loss, n_iter)
   #      writer1.add_scalar('Validation Loss', valid_loss, n_iter)
         #writer1.add_image('Pred', pred_tb[0]) #try to get output of shape 3
