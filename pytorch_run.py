@@ -22,7 +22,7 @@ import torchsummary
 import shutil
 import random
 from Models import Unet_dict, NestedUNet, U_Net, R2U_Net, AttU_Net, R2AttU_Net
-from losses import calc_loss, dice_loss, threshold_predictions_v,threshold_predictions_p
+from losses import calc_loss, dice_loss, dice, IoU, IoU_loss, threshold_predictions_v,threshold_predictions_p
 from ploting import plot_kernels, LayerActivations, input_images, plot_grad_flow
 from Metrics import dice_coeff, accuracy_score
 import time
@@ -272,8 +272,7 @@ for i in range(epoch):
 
         y_pred = model_test(x)
         lossT = calc_loss(y_pred, y)     # Dice_loss Used
-#         acc = dice_coeff(y_pred, y)
-#         print("dice_train", acc / len(train_idx))
+
 
         train_loss += lossT.item() * x.size(0)
         lossT.backward()
@@ -300,8 +299,15 @@ for i in range(epoch):
 
         y_pred1 = model_test(x1)
         lossL = calc_loss(y_pred1, y1)     # Dice_loss Used
+        d = dice(y_pred1, y1)
+        iou = IoU(y_pred1, y1)
+        iou_loss = IoU_loss(y_pred1, y1)
 
         valid_loss += lossL.item() * x1.size(0)
+        val_d += d.item() * x1.size(0)
+        val_iou += iou.item() * x1.size(0)
+        val_iouloss += iou_loss.item() * x1.size(0)
+        
         x_size1 = lossL.item() * x1.size(0)
 
     #######################################################
@@ -334,6 +340,11 @@ for i in range(epoch):
     train_loss = train_loss / len(train_idx)
     valid_loss = valid_loss / len(valid_idx)
     
+    val_d = val_d / len(valid_idx)
+    val_iou = val_iou / len(valid_idx)
+    val_iouloss = val_iouloss / len(valid_idx)
+    
+    print('Val_iou:{} \tVal_dice:{}'.format(val_iou,val_d)
     wandb.log({"train_loss": train_loss,"valid_loss": valid_loss })
 
     if (i+1) % 1 == 0:
