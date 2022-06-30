@@ -246,6 +246,9 @@ for i in range(epoch):
 
     train_loss = 0.0
     valid_loss = 0.0
+    train_d = 0.0
+    train_iou = 0.0
+    train_iouloss = 0.0
     val_d = 0.0
     val_iou = 0.0
     val_iouloss = 0.0
@@ -275,13 +278,13 @@ for i in range(epoch):
 
         y_pred = model_test(x)
         lossT = calc_loss(y_pred, y)     # Dice_loss Used
-        iou = IoU(y_pred1, y1)
-        iou_loss = IoU_loss(y_pred1, y1)
+        iou_t = IoU(y_pred, y)
+        iou_loss_t = IoU_loss(y_pred, y)
 
 
         train_loss += lossT.item() * x.size(0)
-        train_iou += iou.item() * x1.size(0)
-        train_iouloss += iou_loss.item() * x1.size(0)
+        train_iou += iou_t.item() * x1.size(0)
+        train_iouloss += iou_loss_t.item() * x1.size(0)
         
         lossT.backward()
       #  plot_grad_flow(model_test.named_parameters(), n_iter)
