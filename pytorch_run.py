@@ -344,7 +344,7 @@ for i in range(epoch):
     val_iou = val_iou / len(valid_idx)
     val_iouloss = val_iouloss / len(valid_idx)
     
-    print('Val_iou:{} \tVal_dice:{}'.format(val_iou,val_d)
+    print('Val_iou:{} \tVal_dice:{}'.format(val_iou,val_d))
     wandb.log({"train_loss": train_loss,"valid_loss": valid_loss })
 
     if (i+1) % 1 == 0:
