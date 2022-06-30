@@ -51,15 +51,15 @@ device = torch.device("cuda:0" if train_on_gpu else "cpu")
 #Setting the basic paramters of the model
 #######################################################
 
-batch_size = 4
+batch_size = 1
 print('batch_size = ' + str(batch_size))
 
 valid_size = 0.15
 
-epoch = 15
+epoch = 20
 print('epoch = ' + str(epoch))
 
-random_seed = 8
+random_seed = 78
 print('random_seed = ' + str(random_seed))
 
 shuffle = True
@@ -232,9 +232,11 @@ import wandb
 
 
 config = {
+   "Model": "Unet"
+    "Seed": 78
   "initial learning_rate": 0.001,
-  "epochs": 15,
-  "batch_size": 4
+  "epochs": 20,
+  "batch_size": 1
 }
 
 wandb.init(config = config, project="Attention Unet", entity="paulokwija")
