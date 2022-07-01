@@ -68,7 +68,7 @@ class Images_Dataset_folder(torch.utils.data.Dataset):
         else:
             self.tx = torchvision.transforms.Compose([
               #  torchvision.transforms.Resize((128,128)),
-                torchvision.transforms.CenterCrop(96),
+#                 torchvision.transforms.CenterCrop(96),
                 torchvision.transforms.RandomRotation((-10,10)),
                # torchvision.transforms.RandomHorizontalFlip(),
                 torchvision.transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4),
@@ -81,7 +81,7 @@ class Images_Dataset_folder(torch.utils.data.Dataset):
         else:
             self.lx = torchvision.transforms.Compose([
               #  torchvision.transforms.Resize((128,128)),
-                torchvision.transforms.CenterCrop(96),
+#                 torchvision.transforms.CenterCrop(96),
                 torchvision.transforms.RandomRotation((-10,10)),
                 torchvision.transforms.Grayscale(),
                 torchvision.transforms.ToTensor(),
